@@ -5,10 +5,10 @@ export type Tweet = {
    user: User;
    body: string;
    image?: string;
-   likeCount: number;
-   commentCount: number;
-   retweetCount: number;
+   // likeCount: number;
+   // commentCount: number;
+   // retweetCount: number;
    liked: boolean;
-   retweeted: boolean;
-   dataPost: Date;
+   // retweeted: boolean;
+   createdAt: Date;
 };

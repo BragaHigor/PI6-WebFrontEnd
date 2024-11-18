@@ -39,7 +39,7 @@ export const TweetItem = ({ tweet, hideComments }: TweetItemProps) => {
                   <Link href={`/${tweet.user.slug}`}>{tweet.user.name}</Link>
                </div>
                <div className="text-xs text-gray-500">
-                  @{tweet.user.slug} - {formatRelativeTime(tweet.dataPost)}
+                  @{tweet.user.slug} - {tweet.createdAt}
                </div>
             </div>
             <div className="py-4 text-lg">{tweet.body}</div>

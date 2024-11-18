@@ -20,8 +20,6 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
          </GeneralHeader>
          <div className="border-t-2 border-gray-900">
             <TweetItem tweet={tweet} />
-            <TweetItem tweet={tweet} />
-            <TweetItem tweet={tweet} />
          </div>
       </div>
    );
