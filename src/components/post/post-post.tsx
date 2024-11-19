@@ -7,11 +7,11 @@ import { Button } from "../ui/button";
 import { User } from "@/types/user";
 import { useState, useEffect } from "react";
 import { axiosInstance } from "@/server/api";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const TweetPost = () => {
+export const PostPost = () => {
    const userData: User = {
       slug: "",
       name: "",
@@ -20,7 +20,7 @@ export const TweetPost = () => {
       bio: "",
       link: ""
    }
-
+   const router = useRouter();
    const [user, setUserData] = useState(userData);
 
    useEffect(() => {
@@ -78,18 +78,18 @@ export const TweetPost = () => {
             />
          </div>
          <div className="flex-1">
-            <div
+            {/* <div
                className="min-h-14 outline-none text-lg text-white empty:before:text-gray-500 empty:before:content-[attr(data-placeholder)]"
                contentEditable
                role="textbox"
                data-placeholder="O que você está pensando?"
-            >
+            > */}
                <Input
                   placeholder="O que você está pensando?"
                   value={postBody}
                   onChange={(t) => setPostBody(t)}
                />
-            </div>
+            {/* </div> */}
             <div className="flex justify-between items-center mt-2">
                <div className="cursor-pointer" onClick={handleImageUpload}>
                   <FontAwesomeIcon className="size-6" icon={faImage} />

@@ -1,4 +1,4 @@
-// import { Tweet } from "@/types/tweet";
+// import { Post } from "@/types/post";
 // import { user } from "./user";
 // import axios from 'axios';
 
@@ -20,7 +20,7 @@
 //       Object.assign(userData, data);
 //    }
 // });
-// export const tweet: Tweet = {
+// export const post: Post = {
 //    id: 123,
 //    user: user,
 //    body: "Tomara que eu consiga matar o Sukuna hoje",

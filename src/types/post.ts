@@ -1,14 +1,14 @@
 import { User } from "./user";
 
-export type Tweet = {
+export type Post = {
    id: number;
    user: User;
    body: string;
    image?: string;
    // likeCount: number;
    // commentCount: number;
-   // retweetCount: number;
+   // repostCount: number;
    liked: boolean;
-   // retweeted: boolean;
+   // reposted: boolean;
    createdAt: Date;
 };

@@ -43,7 +43,7 @@ export default function EditPage() {
    }
    return (
       <div>
-         <GeneralHeader backHref="/">
+         <GeneralHeader backHref="/home">
             <div className="font-regular text-lg">{user.name}</div>
             <div className="text-xs text-gray-500">{counts.postCount} posts</div>
          </GeneralHeader>
