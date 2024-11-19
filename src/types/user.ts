@@ -5,5 +5,7 @@ export type User = {
    cover?: string;
    bio?: string;
    link?: string;
+   followingCount?: number;
+   followersCount?: number;
    postCount?: number;
 };

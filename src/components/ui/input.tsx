@@ -30,7 +30,7 @@ export const Input = ({
    const [showPassword, setShowPassword] = useState(false);
 
    const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.code.toLowerCase() === "enter" && onEnter) {
+      if (event.code && event.code.toLowerCase() === "enter" && onEnter) {
          onEnter();
       }
    };

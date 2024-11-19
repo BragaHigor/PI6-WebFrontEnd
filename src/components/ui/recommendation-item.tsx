@@ -3,18 +3,44 @@
 import { User } from "@/types/user";
 import Link from "next/link";
 import { Button } from "./button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { axiosInstance } from "@/server/api";
 
 type RecommendationItemProps = {
-   user: User;
+   userId: string;
 };
 
-export const RecommendationItem = ({ user }: RecommendationItemProps) => {
+export const RecommendationItem = ({ userId }: RecommendationItemProps) => {
+   const [user, setUser] = useState<User | null>(null);
    const [following, setFollowing] = useState(false);
+
+   useEffect(() => {
+      const fetchUser = async () => {
+         try{
+            const response = await axiosInstance.get(`/user/${sessionStorage.getItem('userSlug')}`, {
+               headers: {
+                  Authorization: `Bearer ${sessionStorage.getItem('token')}`
+               }
+            });
+            const data = response.data.user;
+            if (data) {
+               setUser(data);
+            }
+         } catch (error) {
+            console.error("Failed to fetch user", error);
+         }
+      };
+
+      fetchUser();
+   }, [userId]);
 
    const handleFollowButton = () => {
       setFollowing(true);
    };
+
+   if (!user) {
+      return <div>Loading...</div>;
+   }
 
    return (
       <div className="flex items-center">

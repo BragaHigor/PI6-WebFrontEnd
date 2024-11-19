@@ -1,15 +1,84 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { GeneralHeader } from "@/components/ui/general-header";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { user } from "@/data/user";
 import { faCamera } from "@fortawesome/free-solid-svg-icons/faCamera";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState, useEffect } from "react";
+import { User } from "@/types/user";
+import { axiosInstance } from "@/server/api";
+import router from "next/router";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
    const isMe = true;
+   const userData: User = {
+      slug: "",
+      name: "",
+      avatar: "",
+      cover: "",
+      bio: "",
+      link: ""
+   }
 
+   const [user, setUserData] = useState(userData);
+
+   useEffect(() => {
+      const getUserData = async () => {
+         try {
+            const response = await axiosInstance.get(`/user/${sessionStorage.getItem('userSlug')}`, {
+               headers: {
+                  Authorization: `Bearer ${sessionStorage.getItem('token')}`
+               }
+            });
+            const data = response.data.user;
+            if (data) {
+               setUserData(data);
+            }
+         } catch (error) {
+            console.error("Failed to fetch user data", error);
+         }
+      };
+
+      getUserData();
+   }, []);
+
+   const [name, setNameField] = useState('');
+   const [bio, setBio] = useState('');
+   const [link, setLink] = useState('');
+
+   const handleSave = async () => {
+      try {
+         const response = await axiosInstance.put(`/user`, {
+            name: name,
+            bio: bio,
+            link: link
+         },
+         {
+            headers: {
+               Authorization: `Bearer ${sessionStorage.getItem('token')}`
+            }
+         });
+         if (response.status === 200) {
+            toast.success("Cadastro atualizado com sucesso!");
+            router.replace("/home");
+         } else {
+            console.error("Erro ao atualizar conta:", response.data.error.name);
+            const errors = response.data.error;
+            let errorMessage = "Erro ao criar conta:";
+            if (errors.name) errorMessage += `\nNome: ${errors.name}`;
+            if (errors.bio) errorMessage += `\n ${errors.bio}`;
+            if (errors.link) errorMessage += `\nLink ${errors.link}`;
+            toast.error(errorMessage);
+         }
+      } catch (error) {
+         console.error("Failed to update profile", error);
+         toast.error("Failed to update profile");
+      }
+   };
    return (
       <div>
          <GeneralHeader backHref="/">
@@ -43,21 +112,23 @@ export default function Page() {
          <section className="p-6 flex flex-col gap-4">
             <label>
                <p className="text-lg text-gray-500 mb-2">Nome</p>
-               <Input placeholder="Digite seu nome" value={user.name} />
+               <Input placeholder="Digite seu nome" value={name}
+               onChange={(t) => setNameField(t)} />
             </label>
             <label>
                <p className="text-lg text-gray-500 mb-2">Bio</p>
-               <Textarea
+               <Input
                   placeholder="Descreva você"
-                  rows={4}
-                  value={user.bio}
+                  value={bio}
+                  onChange={(t) => setBio(t)}
                />
             </label>
             <label>
                <p className="text-lg text-gray-500 mb-2">Link</p>
-               <Input placeholder="Adicione um link" value={user.link} />
+               <Input placeholder="Adicione um link" value={link} onChange={(t) => setLink(t)}/>
             </label>
-            <Button label="Salvar alterações" size={1} />
+            <Button label="Salvar alterações" onClick={handleSave} size={1} />
+            <ToastContainer />
          </section>
       </div>
    );

@@ -15,18 +15,19 @@ export const SigninForm = () => {
 
    const handleSignin = async () => {
       try {
-         const response = await axios.post("http://localhost:3000/auth/signin", {
+         const response = await axios.post("http://localhost:5000/signin", {
             email: emailField,
             password: passwordField, 
          });
-
-         if (response.status === 200) {
+          if (response.status === 200) {
             sessionStorage.setItem("userSlug", response.data.user.slug);
+            sessionStorage.setItem("token", response.data.token);
+            console.log("userSlug", response.data.user.slug);
             router.replace("/home");
-         } else {
+          } else {
             console.error("Erro ao fazer login:", response.data.error);
             toast.error('Email ou senha incorretos!');
-         }
+          }
       } catch (error) {
          console.error("Erro ao conectar com o servidor:", error);
       }
