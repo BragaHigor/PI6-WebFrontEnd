@@ -1,8 +1,8 @@
-import { user } from "@/data/user";
+"use client"
 import { redirect } from "next/navigation";
 
 export default function ProfilePage() {
-   redirect("/" + user.slug);
+   redirect("/" + sessionStorage.getItem('userSlug'));
 
    return null;
 }
