@@ -80,7 +80,7 @@ export default function EditPage() {
                         target="_blank"
                      >
                         {user.link}
-                     </Link>json()
+                     </Link>
                   </div>
                )}
                <div className="my-5 flex gap-6">

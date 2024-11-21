@@ -26,9 +26,9 @@ export const PostItem = ({ post, hideComments }: PostItemProps) => {
          <div>
             <Link href={`/${post.user.slug}`}>
                <img
-                  className="size-10 rounded-full"
-                  src={post.user.avatar}
-                  alt={post.user.name}
+                 className="size-10 rounded-full"
+                 src={post.user.avatar}
+                 alt={post.user.name}
                />
             </Link>
          </div>

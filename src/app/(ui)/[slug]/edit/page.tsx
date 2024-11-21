@@ -40,14 +40,14 @@ export default function Page() {
          });
 
          if (response.status === 200) {
-            toast.success("${type} atualizado com sucesso!");
+            toast.success(`${type} atualizado com sucesso!`);
             setUserData((prevUser) => ({ ...prevUser, type: response.data.type }));
          } else {
-            toast.error("Erro ao atualizar ${type}");
+            toast.error(`Erro ao atualizar ${type}`);
          }
       } catch (error) {
-         console.error("Failed to upload ${type}", error);
-         toast.error("Failed to upload ${type}");
+         console.error(`Failed to upload ${type}`, error);
+         toast.error(`Failed to upload ${type}`);
       }
    };
 
